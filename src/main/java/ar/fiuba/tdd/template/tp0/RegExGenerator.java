@@ -2,9 +2,9 @@ package ar.fiuba.tdd.template.tp0;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RegExGenerator {
-    // TODO: Uncomment this field
     //private int maxLength;
 
     //public RegExGenerator(int maxLength) {
