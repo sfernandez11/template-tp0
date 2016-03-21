@@ -1,8 +1,11 @@
 package ar.fiuba.tdd.template.tp0;
 
 public class IncorrectFormatException extends Exception {
-    public IncorrectFormatException() {
-        super();
+
+    private String msg;
+
+    public IncorrectFormatException(String msg) {
+        this.msg = msg;
     }
 }
 

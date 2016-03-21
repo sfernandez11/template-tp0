@@ -2,23 +2,29 @@ package ar.fiuba.tdd.template.tp0;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RegExGenerator {
-    //private int maxLength;
+    private int maxLength;
 
-    //public RegExGenerator(int maxLength) {
-    //    this.maxLength = maxLength;
-    //}
+    public RegExGenerator(int maxLength) {
+        this.maxLength = maxLength;
+    }
 
-    // TODO: Uncomment parameters
-    public List<String> generate(/*String regEx, int numberOfResults*/) {
-        return new ArrayList<String>() {
-            {
-                add("a");
-                add("b");
-                add("c");
+    public List<String> generate(String regEx, int numberOfResults) throws IncorrectFormatException {
+        List<String> results = new ArrayList<>();
+        if (regEx.isEmpty()) {
+            return results;
+        }
+        List<String> tokens = new RegExParser().parse(regEx);
+        String actualResult = "";
+        StringGenerator generator = new StringGenerator(this.maxLength);
+        for (int i = 0; i < numberOfResults - 1; i++) {
+            for (String token : tokens) {
+                actualResult = actualResult.concat(generator.randomGenerate(token));
             }
-        };
+            results.add(actualResult);
+            actualResult = "";
+        }
+        return results;
     }
 }
