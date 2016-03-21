@@ -7,5 +7,9 @@ public class IncorrectFormatException extends Exception {
     public IncorrectFormatException(String msg) {
         this.msg = msg;
     }
+
+    public String getMsg() {
+        return this.msg;
+    }
 }
 

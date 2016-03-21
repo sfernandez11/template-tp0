@@ -25,6 +25,10 @@ public class StringGenerator {
         return getNumberOfRepetitions(tokenQuantifier);
     }
 
+    private String charToString(char character) {
+        return new StringBuilder().append(character).toString();
+    }
+
     private int getNumberOfRepetitions(char quantifier) {
         switch (quantifier) {
             case Quantifier0o1: {
@@ -50,6 +54,7 @@ public class StringGenerator {
     private String generateLiteralString(String token) {
         String result = "";
         char first = token.charAt(0);
+        String auxString = charToString(first);
         boolean dot = isDot(first);
         int repetitions = hasQuantifier(token);
         for (int i = 0; i < repetitions ; i++) {
@@ -58,34 +63,37 @@ public class StringGenerator {
                 while (isExcludedNumber(randomIndex)) {
                     randomIndex = getRandomNumber(0, ASCIISpace);
                 }
-                first = (char) randomIndex;
+                auxString = charToString((char) randomIndex);
             }
-            result = result + first;
+            result = result.concat(auxString);
         }
         return result;
     }
 
     private String generateBSString(String token) {
         String result = "";
-        char first = token.charAt(1);
+        String auxString = charToString(token.charAt(1));
         int repetitions = 1;
         if (token.length() > 2) {
             repetitions = hasQuantifier(token);
         }
         for (int i = 0; i < repetitions; i++) {
-            result = result + first;
+            result = result.concat(auxString);
         }
         return result;
     }
 
     private String generateSetString(String token) {
         String result = "";
+        String auxString;
+        token = token.replace(BackSlashStr, "");
         int squareIndex = token.indexOf("]");
         String set = token.substring(1, squareIndex);
         int repetitions = hasQuantifier(token);
         for (int i = 0; i < repetitions; i++) {
             int randomIndex = getRandomNumber(0, set.length() - 1);
-            result = result + set.charAt(randomIndex);
+            auxString = charToString(set.charAt(randomIndex));
+            result = result.concat(auxString);
         }
         return result;
     }

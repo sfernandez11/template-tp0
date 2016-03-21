@@ -14,7 +14,7 @@ public class RegExParser {
     }
 
     private static boolean isReservedChar(char character) {
-        String reservedChars = ".*+?[]\\";
+        String reservedChars = ".*+?[]";
         return reservedChars.contains("" + character);
     }
 
@@ -53,7 +53,9 @@ public class RegExParser {
 
     private void checkSetChars(String aux, int actual) throws IncorrectFormatException {
         if (isReservedChar(aux.charAt(actual))) {
-            throw new IncorrectFormatException("No puede haber un Reserved Char dentro de un Set");
+            if (! Utility.isBackSlash(aux.charAt(actual - 1))) {
+                throw new IncorrectFormatException("No puede haber un ReservedChar dentro de un Set sin ser escapeado");
+            }
         }
     }
 

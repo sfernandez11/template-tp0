@@ -19,6 +19,7 @@ public class RegExGeneratorTest {
         try {
             results = generator.generate(regEx, numberOfResults);
         } catch (IncorrectFormatException incorrectFormatException) {
+            System.out.println(incorrectFormatException.getMsg());
             return false;
         }
         // force matching the beginning and the end of the strings
@@ -76,11 +77,13 @@ public class RegExGeneratorTest {
     }
 
     @Test
+    //El ultimo da error ya que el Set no permite un "]" aunque este escapeado.
     public void testNegativeOrError() {
         assertFalse(validate("jkl++", 10));
         assertFalse(validate("[]", 15));
         assertFalse(validate("[[e]", 10));
         assertFalse(validate("[]]", 10));
+        assertFalse(validate("[\\]]", 10));
     }
 
     @Test
@@ -96,13 +99,13 @@ public class RegExGeneratorTest {
     }
 
     @Test
-    //No puede haber caracteres reservados dentro de un Set
+    //No puede haber caracteres reservados dentro de un Set sin ser escapeados
     public void testEscapedLiteralsOnSet() {
-        assertFalse(validate("[scsd[]dwd]*", 5));
-        assertFalse(validate("[a*dwdq]", 10));
-        assertFalse(validate("[a3?]", 10));
-        assertFalse(validate("[avvcs+]", 10));
-        assertFalse(validate("[qw.c??]", 20));
+        assertTrue(validate("[scsd\\[dwd]*", 5));
+        assertTrue(validate("[a\\*dwdq]", 10));
+        assertTrue(validate("[a3\\?]", 10));
+        assertTrue(validate("[avvcs\\+]", 10));
+        assertTrue(validate("[qw\\.c]", 20));
     }
 
     @Test
