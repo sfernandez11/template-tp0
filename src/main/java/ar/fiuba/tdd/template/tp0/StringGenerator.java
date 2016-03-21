@@ -1,6 +1,7 @@
 package ar.fiuba.tdd.template.tp0;
 
 import java.util.Random;
+
 import static ar.fiuba.tdd.template.tp0.Constants.*;
 
 public class StringGenerator {

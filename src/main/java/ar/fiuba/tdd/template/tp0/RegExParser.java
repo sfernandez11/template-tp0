@@ -1,7 +1,9 @@
 package ar.fiuba.tdd.template.tp0;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
 import static ar.fiuba.tdd.template.tp0.Constants.*;
 
 public class RegExParser {

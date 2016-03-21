@@ -11,14 +11,14 @@ import static org.junit.Assert.assertTrue;
 
 public class RegExGeneratorTest {
 
-    private int maxLength = 20;
+    private int maxLength = 15;
 
     private boolean validate(String regEx, int numberOfResults) {
         RegExGenerator generator = new RegExGenerator(this.maxLength);
         List<String> results;
         try {
             results = generator.generate(regEx, numberOfResults);
-        } catch (IncorrectFormatException incorrectFormatException ) {
+        } catch (IncorrectFormatException incorrectFormatException) {
             return false;
         }
         // force matching the beginning and the end of the strings
@@ -27,11 +27,12 @@ public class RegExGeneratorTest {
                 .stream()
                 .reduce(true,
                         (acc, item) -> {
-                            Matcher matcher = pattern.matcher(item);
-                            return acc && matcher.find();
-                        },
+                        Matcher matcher = pattern.matcher(item);
+                        return acc && matcher.find();
+                    },
                         (item1, item2) -> item1 && item2);
     }
+
 
     @Test
     public void testAnyCharacter() {
